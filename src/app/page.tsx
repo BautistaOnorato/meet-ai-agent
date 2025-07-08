@@ -1,8 +1,6 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div >
+    <div className="flex justify-center items-center h-screen text-4xl font-bold text-green-400">
       Boca
     </div>
   );
