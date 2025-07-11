@@ -40,8 +40,8 @@ export const AgentIdView = ({ agentId }: AgentIdViewProps) => {
         );
         router.push("/agents");
       },
-      onError: (error) => {
-        toast.error(error.message);
+      onError: () => {
+        toast.error("Error removing agent");
       },
     })
   );

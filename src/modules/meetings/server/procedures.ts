@@ -20,8 +20,17 @@ export const meetingsRouter = createTRPCRouter({
       const [existingMeeting] = await db
         .select({
           ...getTableColumns(meetings),
+          agent: agents,
+          duration: sql<number>`
+            CASE
+              WHEN ${meetings.endedAt} IS NOT NULL AND ${meetings.startedAt} IS NOT NULL
+              THEN EXTRACT(EPOCH FROM (${meetings.endedAt} - ${meetings.startedAt}))
+              ELSE NULL
+            END
+          `.as("duration"),
         })
         .from(meetings)
+        .innerJoin(agents, eq(meetings.agentId, agents.id))
         .where(
           and(
             eq(meetings.id, input.id),
@@ -32,7 +41,7 @@ export const meetingsRouter = createTRPCRouter({
       if (!existingMeeting) {
         throw new TRPCError({
           code: "NOT_FOUND",
-          message: "Agent not found",
+          message: "Meeting not found",
         });
       }
 
@@ -50,13 +59,15 @@ export const meetingsRouter = createTRPCRouter({
           .default(DEFAULT_PAGE_SIZE),
         search: z.string().nullish(),
         agentId: z.string().nullish(),
-        status: z.enum([
-          MeetingStatus.UPCOMING,
-          MeetingStatus.ACTIVE,
-          MeetingStatus.COMPLETED,
-          MeetingStatus.CANCELLED,
-          MeetingStatus.PROCESSING,
-        ]).nullish()
+        status: z
+          .enum([
+            MeetingStatus.UPCOMING,
+            MeetingStatus.ACTIVE,
+            MeetingStatus.COMPLETED,
+            MeetingStatus.CANCELLED,
+            MeetingStatus.PROCESSING,
+          ])
+          .nullish(),
       })
     )
     .query(async ({ ctx, input }) => {
@@ -142,5 +153,28 @@ export const meetingsRouter = createTRPCRouter({
       }
 
       return updatedMeeting;
+    }),
+
+  remove: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const [removedMeeting] = await db
+        .delete(meetings)
+        .where(
+          and(
+            eq(meetings.id, input.id),
+            eq(meetings.userId, ctx.session.user.id)
+          )
+        )
+        .returning();
+
+      if (!removedMeeting) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Meeting not found",
+        });
+      }
+
+      return removedMeeting;
     }),
 });
