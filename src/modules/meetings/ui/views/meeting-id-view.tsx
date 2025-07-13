@@ -14,6 +14,8 @@ import { toast } from "sonner";
 import { useConfirm } from "@/hooks/use-confirm";
 import { UpdateMeetingDialog } from "../components/update-meeting-dialog";
 import { useState } from "react";
+import { MeetingStatus } from "../../types";
+import { MeetingStatusFactory } from "../components/meeting-status-factory";
 
 interface MeetingIdViewProps {
   meetingId: string;
@@ -75,7 +77,10 @@ export const MeetingIdView = ({ meetingId }: MeetingIdViewProps) => {
           onEdit={() => handleUpdateMeetingDialogOpen(true)}
           onRemove={handleRemoveMeeting}
         />
-        {JSON.stringify(data, null, 2)}
+        <MeetingStatusFactory
+          status={data.status as MeetingStatus}
+          meetingId={meetingId}
+        />
       </div>
     </>
   );
@@ -98,3 +103,4 @@ export const MeetingIdViewError = () => {
     />
   );
 };
+
