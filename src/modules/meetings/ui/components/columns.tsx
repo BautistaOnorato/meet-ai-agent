@@ -13,17 +13,9 @@ import {
   VideoIcon,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import humanizeDuration from "humanize-duration";
 import { format } from "date-fns";
-import { cn } from "@/lib/utils";
+import { cn, formatDuration } from "@/lib/utils";
 
-function fomratDuration(seconds: number) {
-  return humanizeDuration(seconds * 1000, {
-    largest: 1,
-    round: true,
-    units: ["h", "m", "s"],
-  });
-}
 
 const statusIconMap = {
   upcoming: ClockArrowUpIcon,
@@ -100,7 +92,7 @@ export const columns: ColumnDef<MeetingGetMany[number]>[] = [
         className="capitalize [&>svg]:size-4 flex items-center gap-x-2"
       >
         <ClockFadingIcon className="text-blue-700" />
-        {row.original.duration ? fomratDuration(row.original.duration) : "No duration"}
+        {row.original.duration ? formatDuration(row.original.duration) : "No duration"}
       </Badge>
     )
   }

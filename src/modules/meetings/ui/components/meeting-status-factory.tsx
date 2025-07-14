@@ -1,15 +1,17 @@
-import { MeetingStatus } from "../../types";
+import { MeetingGetOne, MeetingStatus } from "../../types";
 import { ActiveState } from "./active-state";
 import { CancelledState } from "./cancelled-state";
+import { CompletedState } from "./completed-state";
 import { ProcessingState } from "./processing-state";
 import { UpcomingState } from "./upcoming-state";
 
 interface MeetingStatusFactoryProps {
   status: MeetingStatus;
   meetingId: string;
+  data: MeetingGetOne;
 }
 
-export const MeetingStatusFactory = ({ status, meetingId }: MeetingStatusFactoryProps) => {
+export const MeetingStatusFactory = ({ status, meetingId, data }: MeetingStatusFactoryProps) => {
   switch (status) {
     case MeetingStatus.UPCOMING:
       return (
@@ -25,9 +27,7 @@ export const MeetingStatusFactory = ({ status, meetingId }: MeetingStatusFactory
       );
     case MeetingStatus.COMPLETED:
       return (
-        <div className="flex items-center gap-x-2 capitalize">
-          {MeetingStatus.COMPLETED}
-        </div>
+        <CompletedState data={data} />
       );
     case MeetingStatus.PROCESSING:
       return (

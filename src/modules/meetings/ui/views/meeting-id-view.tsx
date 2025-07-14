@@ -80,6 +80,7 @@ export const MeetingIdView = ({ meetingId }: MeetingIdViewProps) => {
         <MeetingStatusFactory
           status={data.status as MeetingStatus}
           meetingId={meetingId}
+          data={data}
         />
       </div>
     </>
