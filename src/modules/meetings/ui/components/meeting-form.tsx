@@ -23,6 +23,7 @@ import { useState } from "react";
 import { CommandSelect } from "@/components/command-select";
 import { GeneratedAvatar } from "@/components/generated-avatar";
 import { NewAgentDialog } from "@/modules/agents/ui/components/new-agent-dialog";
+import { useRouter } from "next/navigation";
 
 interface MeetingFormProps {
   onSuccess?: (id?: string) => void;
@@ -35,6 +36,7 @@ export const MeetingForm = ({
   onCancel,
   initialValues,
 }: MeetingFormProps) => {
+  const router = useRouter()
   const trpc = useTRPC();
   const queryClient = useQueryClient();
 
@@ -57,14 +59,19 @@ export const MeetingForm = ({
         await queryClient.invalidateQueries(
           trpc.meetings.getMany.queryOptions({})
         );
+        
+        await queryClient.invalidateQueries(
+          trpc.premium.getFreeUsage.queryOptions()
+        );
 
-        // TODO: invalid free tier users
         onSuccess?.(data.id);
       },
       onError: (error) => {
         toast.error(error.message);
 
-        // TODO: Check if is "FORBIDDEN"
+        if (error.data?.code === "FORBIDDEN") {
+          router.push("/upgrade");
+        }
       },
     })
   );
