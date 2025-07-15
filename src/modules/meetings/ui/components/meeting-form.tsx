@@ -118,9 +118,13 @@ export const MeetingForm = ({
     }
   };
 
+  const handleMeetingAgent = (agentId: string) => {
+    form.setValue("agentId", agentId);
+  }
+
   return (
     <>
-      <NewAgentDialog open={openNewAgentDialog} onOpenChange={handleNewAgentDialogOpen} />
+      <NewAgentDialog open={openNewAgentDialog} onOpenChange={handleNewAgentDialogOpen} handleMeetingAgent={handleMeetingAgent} />
       <Form {...form}>
         <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
           <FormField

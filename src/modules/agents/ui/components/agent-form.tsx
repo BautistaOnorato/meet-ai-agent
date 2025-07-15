@@ -23,15 +23,16 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 interface AgentFormProps {
-  onSuccess?: () => void;
+  onSuccess?: ({ agentId }: { agentId?: string }) => void;
   onCancel?: () => void;
   initialValues?: AgentGetOne;
+  handleMeetingAgent?: () => void;
 }
 
 export const AgentForm = ({
   onSuccess,
   onCancel,
-  initialValues,
+  initialValues
 }: AgentFormProps) => {
   const router = useRouter();
   const trpc = useTRPC();
@@ -39,7 +40,7 @@ export const AgentForm = ({
 
   const createAgent = useMutation(
     trpc.agents.create.mutationOptions({
-      onSuccess: async () => {
+      onSuccess: async (data) => {
         await queryClient.invalidateQueries(
           trpc.agents.getMany.queryOptions({})
         );
@@ -48,7 +49,7 @@ export const AgentForm = ({
           trpc.premium.getFreeUsage.queryOptions()
         );
 
-        onSuccess?.();
+        onSuccess?.({ agentId: data.id });
       },
       onError: (error) => {
         toast.error(error.message);
@@ -62,7 +63,7 @@ export const AgentForm = ({
 
   const updateAgent = useMutation(
     trpc.agents.update.mutationOptions({
-      onSuccess: async () => {
+      onSuccess: async (data) => {
         await queryClient.invalidateQueries(
           trpc.agents.getMany.queryOptions({})
         );
@@ -73,7 +74,7 @@ export const AgentForm = ({
           );
         }
 
-        onSuccess?.();
+        onSuccess?.({ agentId: data.id });
       },
       onError: (error) => {
         toast.error(error.message);

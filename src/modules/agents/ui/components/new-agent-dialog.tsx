@@ -4,9 +4,17 @@ import { AgentForm } from "./agent-form";
 interface NewAgentDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
+  handleMeetingAgent?: (agentId: string) => void
 }
 
-export const NewAgentDialog = ({ open, onOpenChange }: NewAgentDialogProps) => {
+export const NewAgentDialog = ({ open, onOpenChange, handleMeetingAgent }: NewAgentDialogProps) => {
+  const handleSuccess = ({ agentId }: { agentId?: string }) => {
+    if (agentId) {
+      handleMeetingAgent?.(agentId);
+    } 
+    onOpenChange(false);
+  }
+
   return (
     <ResponsiveDialog
       title="New Agent"
@@ -15,7 +23,7 @@ export const NewAgentDialog = ({ open, onOpenChange }: NewAgentDialogProps) => {
       onOpenChange={onOpenChange}
     >
       <AgentForm
-        onSuccess={() => onOpenChange(false)}
+        onSuccess={handleSuccess}
         onCancel={() => onOpenChange(false)}
       />
     </ResponsiveDialog>

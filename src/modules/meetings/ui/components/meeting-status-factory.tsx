@@ -11,31 +11,21 @@ interface MeetingStatusFactoryProps {
   data: MeetingGetOne;
 }
 
-export const MeetingStatusFactory = ({ status, meetingId, data }: MeetingStatusFactoryProps) => {
+export const MeetingStatusFactory = ({
+  status,
+  meetingId,
+  data,
+}: MeetingStatusFactoryProps) => {
   switch (status) {
     case MeetingStatus.UPCOMING:
-      return (
-        <UpcomingState
-          meetingId={meetingId}
-          isCancelling={false}
-          onCancelMeeting={() => {}}
-        />
-      );
+      return <UpcomingState meetingId={meetingId} />;
     case MeetingStatus.ACTIVE:
-      return (
-        <ActiveState meetingId={meetingId} />
-      );
+      return <ActiveState meetingId={meetingId} />;
     case MeetingStatus.COMPLETED:
-      return (
-        <CompletedState data={data} />
-      );
+      return <CompletedState data={data} />;
     case MeetingStatus.PROCESSING:
-      return (
-        <ProcessingState />
-      );
+      return <ProcessingState />;
     case MeetingStatus.CANCELLED:
-      return (
-        <CancelledState />
-      );
+      return <CancelledState />;
   }
 };
