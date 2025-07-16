@@ -9,7 +9,11 @@ import { AgentSearchFilter } from "./agent-search-filter";
 import { DEFAULT_PAGE } from "@/constants";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
-export const AgentsListHeader = () => {
+interface AgentsListHeaderProps {
+  hasAgents: boolean;
+}
+
+export const AgentsListHeader = ({ hasAgents }: AgentsListHeaderProps) => {
   const [filters, setFilters] = useAgentsFilters();
   const [open, setOpen] = useState(false);
 
@@ -34,18 +38,24 @@ export const AgentsListHeader = () => {
             New Agent
           </Button>
         </div>
-        <ScrollArea>
-          <div className="flex items-center gap-x-2 p-1">
-            <AgentSearchFilter />
-            {isAnyFilterModified && (
-              <Button variant={"outline"} size={"sm"} onClick={onClearFilters}>
-                <XCircleIcon />
-                Clear
-              </Button>
-            )}
-          </div>
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
+        {hasAgents && (
+          <ScrollArea>
+            <div className="flex items-center gap-x-2 p-1">
+              <AgentSearchFilter />
+              {isAnyFilterModified && (
+                <Button
+                  variant={"outline"}
+                  size={"sm"}
+                  onClick={onClearFilters}
+                >
+                  <XCircleIcon />
+                  Clear
+                </Button>
+              )}
+            </div>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
+        )}
       </div>
     </>
   );

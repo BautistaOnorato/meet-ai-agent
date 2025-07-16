@@ -1,6 +1,5 @@
 import { auth } from "@/lib/auth";
 import { loadSearchParams } from "@/modules/meetings/params";
-import { MeetingsListHeader } from "@/modules/meetings/ui/components/meetings-list-header";
 import {
   MeetingsView,
   MeetingsViewError,
@@ -35,16 +34,13 @@ const MeetingsPage = async ({ searchParams }: Props) => {
   );
 
   return (
-    <>
-      <MeetingsListHeader />
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <Suspense fallback={<MeetingsViewLoading />}>
-          <ErrorBoundary fallback={<MeetingsViewError />}>
-            <MeetingsView />
-          </ErrorBoundary>
-        </Suspense>
-      </HydrationBoundary>
-    </>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <Suspense fallback={<MeetingsViewLoading />}>
+        <ErrorBoundary fallback={<MeetingsViewError />}>
+          <MeetingsView />
+        </ErrorBoundary>
+      </Suspense>
+    </HydrationBoundary>
   );
 };
 

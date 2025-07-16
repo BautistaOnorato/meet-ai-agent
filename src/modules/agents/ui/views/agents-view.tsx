@@ -11,6 +11,8 @@ import { EmptyState } from "@/components/empty-state";
 import { useAgentsFilters } from "../../hooks/use-agents-filters";
 import { DataPagination } from "@/components/data-pagination";
 import { useRouter } from "next/navigation";
+import { AgentsListHeader } from "../components/agents-list-header";
+import Link from "next/link";
 
 export const AgentsView = () => {
   const router = useRouter();
@@ -24,24 +26,37 @@ export const AgentsView = () => {
   );
 
   return (
-    <div className="flex-1 pb-4 px-4 md:px-8 flex flex-col gap-y-4">
-      <DataTable
-        data={data.items}
-        columns={columns}
-        onRowClick={(row) => router.push(`/agents/${row.id}`)}
-      />
-      <DataPagination
-        page={filters.page}
-        totalPages={data.totalPages}
-        onPageChange={(page) => setFilters({ page })}
-      />
-      {data.items.length === 0 && (
-        <EmptyState
-          title="Create your first agent"
-          description="Create an agent to join your meetings. Each agent will follow your instructions and can interact with participants during the call."
-        />
-      )}
-    </div>
+    <>
+      <AgentsListHeader hasAgents={data.items.length > 0} />
+      <div className="flex-1 pb-4 px-4 md:px-8 flex flex-col gap-y-4">
+        {data.items.length > 0 ? (
+          <>
+            <DataTable
+              data={data.items}
+              columns={columns}
+              onRowClick={(row) => router.push(`/agents/${row.id}`)}
+            />
+            <DataPagination
+              page={filters.page}
+              totalPages={data.totalPages}
+              onPageChange={(page) => setFilters({ page })}
+            />
+          </>
+        ) : (
+          <EmptyState
+            title="Create your first agent"
+            description="Create an agent to join your meetings. Each agent will follow your instructions and can interact with participants during the call."
+          >
+            <p className="text-sm text-muted-foreground">
+              First time using MeetAI? Follow our quick guide to{" "}
+              <Link href="/get-started" className="underline text-primary font-semibold">
+                get started!
+              </Link>
+            </p>
+          </EmptyState>
+        )}
+      </div>
+    </>
   );
 };
 
@@ -62,3 +77,5 @@ export const AgentsViewError = () => {
     />
   );
 };
+
+

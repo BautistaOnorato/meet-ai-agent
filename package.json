@@ -11,7 +11,8 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
-    "dev:webhook": "ngrok http --url=pipefish-renewing-lightly.ngrok-free.app 3000"
+    "dev:webhook": "ngrok http --url=pipefish-renewing-lightly.ngrok-free.app 3000",
+    "dev:inngest": "npx inngest-cli@latest dev"
   },
   "dependencies": {
     "@dicebear/collection": "^9.2.3",

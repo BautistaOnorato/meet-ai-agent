@@ -13,7 +13,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
-import { BotIcon, StarIcon, VideoIcon } from "lucide-react";
+import { BotIcon, CompassIcon, StarIcon, VideoIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -34,6 +34,14 @@ const firstSection = [
 ];
 
 const secondSection = [
+  {
+    icon: CompassIcon,
+    label: "Get Started",
+    href: "/get-started",
+  },
+];
+
+const thirdSection = [
   {
     icon: StarIcon,
     label: "Upgrade",
@@ -83,13 +91,43 @@ export const DashboardSidebar = () => {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        <div className="px-4 py-2">
+        <div className="px-4">
           <Separator className="opacity-10 text-[#5d6b68]" />
         </div>
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
               {secondSection.map(({ href, icon: Icon, label }) => (
+                <SidebarMenuItem key={href}>
+                  <SidebarMenuButton
+                    asChild
+                    className={cn(
+                      `h-10 hover:bg-linear-to-r/oklch
+                      from-sidebar-accent from-5% via-30% via-sidebar/50 to-sidebar/50`,
+                      pathname === href &&
+                        "bg-linear-to-r/oklch"
+                    )}
+                    isActive={pathname === href}
+                  >
+                    <Link href={href}>
+                      <Icon className="size-5" />
+                      <span className="text-sm tracking-tight text-medium">
+                        {label}
+                      </span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        <div className="px-4">
+          <Separator className="opacity-10 text-[#5d6b68]" />
+        </div>
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {thirdSection.map(({ href, icon: Icon, label }) => (
                 <SidebarMenuItem key={href}>
                   <SidebarMenuButton
                     asChild

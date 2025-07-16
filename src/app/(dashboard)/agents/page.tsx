@@ -3,7 +3,6 @@ import {
   AgentsViewError,
   AgentsViewLoading,
 } from "@/modules/agents/ui/views/agents-view";
-import { AgentsListHeader } from "@/modules/agents/ui/components/agents-list-header";
 import { getQueryClient, trpc } from "@/trpc/server";
 
 import { ErrorBoundary } from "react-error-boundary";
@@ -36,16 +35,13 @@ const AgentsPage = async ({ searchParams }: Props) => {
   );
 
   return (
-    <>
-      <AgentsListHeader />
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <Suspense fallback={<AgentsViewLoading />}>
-          <ErrorBoundary fallback={<AgentsViewError />}>
-            <AgentsView />
-          </ErrorBoundary>
-        </Suspense>
-      </HydrationBoundary>
-    </>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <Suspense fallback={<AgentsViewLoading />}>
+        <ErrorBoundary fallback={<AgentsViewError />}>
+          <AgentsView />
+        </ErrorBoundary>
+      </Suspense>
+    </HydrationBoundary>
   );
 };
 
