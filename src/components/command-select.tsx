@@ -1,6 +1,6 @@
 import { ReactNode, useState } from "react";
 import { Button } from "./ui/button";
-import { ChevronsUpDownIcon } from "lucide-react";
+import { ChevronsUpDownIcon, Loader2Icon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CommandEmpty, CommandInput, CommandItem, CommandList, CommandResponsiveDialog } from "./ui/command";
 
@@ -16,6 +16,7 @@ interface CommandSelectProps {
   placeholder?: string
   isSearchable?: boolean
   className?: string
+  isPending?: boolean
 }
 
 export const CommandSelect = ({
@@ -24,7 +25,8 @@ export const CommandSelect = ({
   onSearch,
   value,
   placeholder = "Select an option",
-  className
+  className,
+  isPending = false
 }: CommandSelectProps) => {
   const [open, setOpen] = useState(false);
   const selectedOption = options.find((option) => option.value === value);
@@ -59,9 +61,15 @@ export const CommandSelect = ({
         <CommandInput placeholder="Search..." onValueChange={onSearch} />
         <CommandList>
           <CommandEmpty>
-            <span className="text-muted-foreground text-sm">
-              No options found
-            </span>
+            {isPending ? (
+              <div className="flex items-center justify-center">
+                <Loader2Icon className="animate-spin size-5 text-center" />
+              </div>
+            ) : (
+              <span className="text-muted-foreground text-sm">
+                No options found
+              </span>
+            )}
           </CommandEmpty>
           {
             options.map((option) => (

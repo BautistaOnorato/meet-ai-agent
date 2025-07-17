@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/command";
 import { useTRPC } from "@/trpc/client";
 import { useQuery } from "@tanstack/react-query";
+import { Loader2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction, useState } from "react";
 
@@ -24,14 +25,14 @@ export const DashboardCommand = ({ open, setOpen }: DashboardCommandProps) => {
   const trpc = useTRPC();
   const [search, setSearch] = useState("");
 
-  const meetings = useQuery(
+  const { data: meetings, isPending: meetingsIsPending } = useQuery(
     trpc.meetings.getMany.queryOptions({
       search,
       pageSize: 100,
     })
   );
 
-  const agents = useQuery(
+  const { data: agents, isPending: agentsIsPending } = useQuery(
     trpc.agents.getMany.queryOptions({
       search,
       pageSize: 100,
@@ -52,11 +53,17 @@ export const DashboardCommand = ({ open, setOpen }: DashboardCommandProps) => {
       <CommandList>
         <CommandGroup heading="Meetings">
           <CommandEmpty>
-            <span className="text-muted-foreground text-sm">
-              No meetings found
-            </span>
+            {meetingsIsPending ? (
+              <div className="flex items-center justify-center">
+                <Loader2Icon className="animate-spin size-5 text-center" />
+              </div>
+            ) : (
+              <span className="text-muted-foreground text-sm">
+                No meetings found
+              </span>
+            )}
           </CommandEmpty>
-          {meetings.data?.items.map((meeting) => (
+          {meetings?.items.map((meeting) => (
             <CommandItem
               onSelect={() => {
                 router.push(`/meetings/${meeting.id}`);
@@ -71,11 +78,17 @@ export const DashboardCommand = ({ open, setOpen }: DashboardCommandProps) => {
         </CommandGroup>
         <CommandGroup heading="Agents">
           <CommandEmpty>
-            <span className="text-muted-foreground text-sm">
-              No agents found
-            </span>
+            {agentsIsPending ? (
+              <div className="flex items-center justify-center">
+                <Loader2Icon className="animate-spin size-5 text-center" />
+              </div>
+            ) : (
+              <span className="text-muted-foreground text-sm">
+                No agents found
+              </span>
+            )}
           </CommandEmpty>
-          {agents.data?.items.map((agent) => (
+          {agents?.items.map((agent) => (
             <CommandItem
               onSelect={() => {
                 router.push(`/agents/${agent.id}`);
@@ -84,12 +97,15 @@ export const DashboardCommand = ({ open, setOpen }: DashboardCommandProps) => {
               key={agent.id}
               className="cursor-pointer"
             >
-              <GeneratedAvatar seed={agent.name} variant="botttsNeutral" className="size-5" />
+              <GeneratedAvatar
+                seed={agent.name}
+                variant="botttsNeutral"
+                className="size-5"
+              />
               {agent.name}
             </CommandItem>
           ))}
         </CommandGroup>
-        
       </CommandList>
     </CommandResponsiveDialog>
   );

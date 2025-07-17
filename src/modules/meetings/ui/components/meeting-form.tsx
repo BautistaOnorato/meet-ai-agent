@@ -36,7 +36,7 @@ export const MeetingForm = ({
   onCancel,
   initialValues,
 }: MeetingFormProps) => {
-  const router = useRouter()
+  const router = useRouter();
   const trpc = useTRPC();
   const queryClient = useQueryClient();
 
@@ -45,13 +45,15 @@ export const MeetingForm = ({
 
   const handleAgentSearch = (value: string) => {
     setAgentsSearch(value);
-  }
+  };
 
   const handleNewAgentDialogOpen = (open: boolean) => {
     setOpenNewAgentDialog(open);
-  }
+  };
 
-  const agents = useQuery(trpc.agents.getMany.queryOptions({ pageSize: 100, search: agentsSearch }));
+  const { data: agents, isPending: agentsIsPending } = useQuery(
+    trpc.agents.getMany.queryOptions({ pageSize: 100, search: agentsSearch })
+  );
 
   const createMeeting = useMutation(
     trpc.meetings.create.mutationOptions({
@@ -59,7 +61,7 @@ export const MeetingForm = ({
         await queryClient.invalidateQueries(
           trpc.meetings.getMany.queryOptions({})
         );
-        
+
         await queryClient.invalidateQueries(
           trpc.premium.getFreeUsage.queryOptions()
         );
@@ -120,11 +122,15 @@ export const MeetingForm = ({
 
   const handleMeetingAgent = (agentId: string) => {
     form.setValue("agentId", agentId);
-  }
+  };
 
   return (
     <>
-      <NewAgentDialog open={openNewAgentDialog} onOpenChange={handleNewAgentDialogOpen} handleMeetingAgent={handleMeetingAgent} />
+      <NewAgentDialog
+        open={openNewAgentDialog}
+        onOpenChange={handleNewAgentDialogOpen}
+        handleMeetingAgent={handleMeetingAgent}
+      />
       <Form {...form}>
         <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
@@ -147,25 +153,26 @@ export const MeetingForm = ({
               <FormItem>
                 <FormLabel>Agent</FormLabel>
                 <FormControl>
-                  <CommandSelect 
-                    options={(agents.data?.items ?? []).map((agent) => ({
+                  <CommandSelect
+                    options={(agents?.items ?? []).map((agent) => ({
                       id: agent.id,
                       value: agent.id,
                       children: (
                         <div className="flex items-center gap-x-2">
-                          <GeneratedAvatar 
+                          <GeneratedAvatar
                             seed={agent.name}
                             variant="botttsNeutral"
                             className="size-6 border"
                           />
                           <span>{agent.name}</span>
                         </div>
-                      )
+                      ),
                     }))}
                     onSelect={field.onChange}
                     onSearch={handleAgentSearch}
                     value={field.value}
                     placeholder="Select an agent"
+                    isPending={agentsIsPending}
                   />
                 </FormControl>
                 <FormDescription>

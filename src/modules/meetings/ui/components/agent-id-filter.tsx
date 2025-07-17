@@ -12,7 +12,7 @@ export const AgentIdFilter = () => {
   const trpc = useTRPC();
 
   const [agentSearch, setAgentSearch] = useState("");
-  const { data } = useQuery(
+  const { data, isPending } = useQuery(
     trpc.agents.getMany.queryOptions({ pageSize: 100, search: agentSearch })
   );
 
@@ -22,6 +22,7 @@ export const AgentIdFilter = () => {
 
   return (
     <CommandSelect
+      isPending={isPending}
       className="h-9"
       placeholder="Agent"
       options={(data?.items ?? []).map((agent) => ({
