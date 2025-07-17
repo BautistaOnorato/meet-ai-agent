@@ -18,8 +18,7 @@ const summarizer = createAgent({
     Provide a detailed, engaging summary of the session's content. Focus on major features, user workflows, and any key takeaways. Write in a narrative style, using full sentences. Highlight unique or powerful aspects of the product, platform, or discussion.
 
     ### Notes
-    Break down key content into thematic sections with timestamp ranges. Each section should summarize key points, actions, or demos in bullet format. Timestamps muts be in HH:MM:SS format. 
-    If the session does not reach the 1 hour mark then timestamps should be in MM:SS format. If the session does not reach the 1 minute mark then timestamps should be in SS format.
+    Break down key content into thematic sections. Each section should summarize key points, actions, or demos in bullet format.
 
     Example:
     #### Section Name

@@ -20,6 +20,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { authClient } from "@/lib/auth-client";
 import { ChevronDownIcon, CreditCardIcon, LogOutIcon } from "lucide-react";
@@ -37,7 +38,9 @@ export const DashboardUserButton = () => {
   };
 
   if (isPending || !data?.user) {
-    return null;
+    return (
+      <Skeleton className="h-[60px] w-full rounded-lg bg-sidebar-accent" />
+    );
   }
 
   if (isMobile) {
