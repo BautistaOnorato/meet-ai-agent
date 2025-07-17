@@ -44,7 +44,7 @@ export const MeetingsView = () => {
             description="Schedule a meeting to connect with others. Each meeting lets you collaborate, share ideas, and interact with participants in real time."
           >
             <p className="text-sm text-muted-foreground">
-              First time using MeetAI? Follow our quick guide to{" "}
+              First time using Thinki? Follow our quick guide to{" "}
               <Link
                 href="/get-started"
                 className="underline text-primary font-semibold"

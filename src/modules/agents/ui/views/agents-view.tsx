@@ -48,7 +48,7 @@ export const AgentsView = () => {
             description="Create an agent to join your meetings. Each agent will follow your instructions and can interact with participants during the call."
           >
             <p className="text-sm text-muted-foreground">
-              First time using MeetAI? Follow our quick guide to{" "}
+              First time using Thinki? Follow our quick guide to{" "}
               <Link href="/get-started" className="underline text-primary font-semibold">
                 get started!
               </Link>

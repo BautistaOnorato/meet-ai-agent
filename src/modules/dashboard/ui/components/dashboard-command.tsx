@@ -63,12 +63,13 @@ export const DashboardCommand = ({ open, setOpen }: DashboardCommandProps) => {
                 setOpen(false);
               }}
               key={meeting.id}
+              className="cursor-pointer"
             >
               {meeting.name}
             </CommandItem>
           ))}
         </CommandGroup>
-        <CommandGroup heading="Agants">
+        <CommandGroup heading="Agents">
           <CommandEmpty>
             <span className="text-muted-foreground text-sm">
               No agents found
@@ -81,6 +82,7 @@ export const DashboardCommand = ({ open, setOpen }: DashboardCommandProps) => {
                 setOpen(false);
               }}
               key={agent.id}
+              className="cursor-pointer"
             >
               <GeneratedAvatar seed={agent.name} variant="botttsNeutral" className="size-5" />
               {agent.name}
