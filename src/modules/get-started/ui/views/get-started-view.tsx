@@ -1,12 +1,10 @@
 "use client";
 
+import { Separator } from "@/components/ui/separator";
 import {
   BotIcon,
-  ChefHatIcon,
   CircleCheckBigIcon,
   CopyIcon,
-  HandshakeIcon,
-  RocketIcon,
   VideoIcon,
 } from "lucide-react";
 import Link from "next/link";
@@ -25,10 +23,10 @@ export const GetStartedView = () => {
   return (
     <div className="py-4 px-4 md:px-8 flex flex-col gap-y-6">
       <div className="flex flex-col gap-y-4">
-        <h1 className="text-3xl font-semibold flex items-center gap-x-2">
-          <RocketIcon className="size-8" />
+        <h1 className="text-2xl md:text-3xl font-semibold flex gap-x-2">
           Get Started with Thinki
         </h1>
+        <Separator  />
         <p className="text-base text-neutral-700">
           Welcome to <span className="font-semibold text-black">Thinki</span> —
           your platform to create AI agents and solve real-world problems
@@ -38,23 +36,20 @@ export const GetStartedView = () => {
           With <span className="font-semibold text-black">Thinki</span>, you
           can:
         </p>
-        <ul className="flex flex-col gap-y-3">
-          <li className="text-base text-neutral-700 flex items-center gap-x-2 ml-4">
-            <BotIcon className="size-6" />
+        <ul className="flex flex-col gap-y-3 ml-8 list-disc list-outside">
+          <li className="text-base text-neutral-700">
             Create custom{" "}
             <span className="font-semibold text-black">AI agents</span> tailored
             to specific tasks.
           </li>
-          <li className="text-base text-neutral-700 flex items-center gap-x-2 ml-4">
-            <VideoIcon className="size-6" />
+          <li className="text-base text-neutral-700">
             Start{" "}
             <span className="font-semibold text-black">
               video meetings
             </span>{" "}
             with these agents.
           </li>
-          <li className="text-base text-neutral-700 flex items-center gap-x-2 ml-4">
-            <HandshakeIcon className="size-6" />
+          <li className="text-base text-neutral-700">
             Get real-time help on anything — from writing code to cooking a
             perfect meal.
           </li>
@@ -67,10 +62,10 @@ export const GetStartedView = () => {
       </div>
 
       <div className="flex flex-col gap-y-4 items-start">
-        <h4 className="text-2xl font-semibold flex items-center gap-x-2">
-          <ChefHatIcon className="size-6" />
+        <h4 className="text-xl md:text-2xl font-semibold">
           Use Case: Cooking with Your AI Chef
         </h4>
+        <Separator  />
         <p className="text-base text-neutral-700">
           Let’s say you want help preparing a recipe. You’ll:
         </p>
@@ -88,7 +83,7 @@ export const GetStartedView = () => {
       </div>
 
       <div className="flex flex-col gap-y-4 items-start">
-        <h4 className="text-2xl font-semibold flex items-center gap-x-2">
+        <h4 className="text-xl md:text-2xl font-semibold flex items-center gap-x-2">
           <BotIcon className="size-6" />
           Step 1: Create an Agent
         </h4>
@@ -98,7 +93,7 @@ export const GetStartedView = () => {
         </p>
 
         <div className="flex flex-col gap-y-2 w-full border rounded-lg p-4 bg-background">
-          <h5 className="text-xl font-semibold flex items-center gap-x-2">
+          <h5 className="text-lg md:text-xl font-semibold flex items-center gap-x-2">
             1. Go to the Agents Page
           </h5>
 
@@ -116,7 +111,7 @@ export const GetStartedView = () => {
         </div>
 
         <div className="flex flex-col gap-y-2 w-full border rounded-lg p-4 bg-background">
-          <h5 className="text-xl font-semibold flex items-center gap-x-2">
+          <h5 className="text-lg md:text-xl font-semibold flex items-center gap-x-2">
             2. Click &quot;New Agent&quot;
           </h5>
 
@@ -128,7 +123,7 @@ export const GetStartedView = () => {
         </div>
 
         <div className="flex flex-col gap-y-2 w-full border rounded-lg p-4 bg-background">
-          <h5 className="text-xl font-semibold flex items-center gap-x-2">
+          <h5 className="text-lg md:text-xl font-semibold flex items-center gap-x-2">
             3. Name Your Agent
           </h5>
 
@@ -147,7 +142,7 @@ export const GetStartedView = () => {
         </div>
         
         <div className="flex flex-col gap-y-2 w-full border rounded-lg p-4 bg-background">
-          <h5 className="text-xl font-semibold flex items-center gap-x-2">
+          <h5 className="text-lg md:text-xl font-semibold flex items-center gap-x-2">
             4. Provide Instructions
           </h5>
 
@@ -168,7 +163,7 @@ export const GetStartedView = () => {
         </div>
 
         <div className="flex flex-col gap-y-2 w-full border rounded-lg p-4 bg-background">
-          <h5 className="text-xl font-semibold flex items-center gap-x-2">
+          <h5 className="text-lg md:text-xl font-semibold flex items-center gap-x-2">
             5. Click &quot;Create&quot;
           </h5>
 
@@ -179,7 +174,7 @@ export const GetStartedView = () => {
       </div>
 
       <div className="flex flex-col gap-y-4 items-start">
-        <h4 className="text-2xl font-semibold flex items-center gap-x-2">
+        <h4 className="text-xl md:text-2xl font-semibold flex items-center gap-x-2">
           <VideoIcon className="size-6" />
           Step 2: Create a Meeting
         </h4>
@@ -188,7 +183,7 @@ export const GetStartedView = () => {
         </p>
 
         <div className="flex flex-col gap-y-2 w-full border rounded-lg p-4 bg-background">
-          <h5 className="text-xl font-semibold flex items-center gap-x-2">
+          <h5 className="text-lg md:text-xl font-semibold flex items-center gap-x-2">
             1. Go to the Meetings Page
           </h5>
 
@@ -206,7 +201,7 @@ export const GetStartedView = () => {
         </div>
 
         <div className="flex flex-col gap-y-2 w-full border rounded-lg p-4 bg-background">
-          <h5 className="text-xl font-semibold flex items-center gap-x-2">
+          <h5 className="text-lg md:text-xl font-semibold flex items-center gap-x-2">
             2. Click &quot;New Meeting&quot;
           </h5>
 
@@ -218,7 +213,7 @@ export const GetStartedView = () => {
         </div>
 
         <div className="flex flex-col gap-y-2 w-full border rounded-lg p-4 bg-background">
-          <h5 className="text-xl font-semibold flex items-center gap-x-2">
+          <h5 className="text-lg md:text-xl font-semibold flex items-center gap-x-2">
             3. Name Your Meeting
           </h5>
 
@@ -237,7 +232,7 @@ export const GetStartedView = () => {
         </div>
         
         <div className="flex flex-col gap-y-2 w-full border rounded-lg p-4 bg-background">
-          <h5 className="text-xl font-semibold flex items-center gap-x-2">
+          <h5 className="text-lg md:text-xl font-semibold flex items-center gap-x-2">
             4. Select the Agent
           </h5>
 
@@ -247,7 +242,7 @@ export const GetStartedView = () => {
         </div>
 
         <div className="flex flex-col gap-y-2 w-full border rounded-lg p-4 bg-background">
-          <h5 className="text-xl font-semibold flex items-center gap-x-2">
+          <h5 className="text-lg md:text-xl font-semibold flex items-center gap-x-2">
             5. Click &quot;Create&quot;
           </h5>
 
@@ -257,7 +252,7 @@ export const GetStartedView = () => {
         </div>
         
         <div className="flex flex-col gap-y-2 w-full border rounded-lg p-4 bg-background">
-          <h5 className="text-xl font-semibold flex items-center gap-x-2">
+          <h5 className="text-lg md:text-xl font-semibold flex items-center gap-x-2">
             6. Click &quot;Start meeting&quot;
           </h5>
 
@@ -268,7 +263,7 @@ export const GetStartedView = () => {
       </div>
 
       <div className="flex flex-col gap-y-4 items-start bg-linear-to-br from-[#5D38C3] to-[#3B1E77] rounded-lg p-4 text-white">
-        <h4 className="text-2xl font-semibold flex items-center gap-x-2">
+        <h4 className="text-xl md:text-2xl font-semibold flex items-center gap-x-2">
           <CircleCheckBigIcon className="size-6" />
           You are Ready to Cook!
         </h4>

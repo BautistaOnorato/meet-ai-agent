@@ -78,7 +78,7 @@ export const PricingCard = ({
   onClick,
 }: PricingCardProps) => {
   return (
-    <div className={cn(pricingCardVariants({ variant }), className)}>
+    <div className={cn(pricingCardVariants({ variant }), "lg:w-[500px] xl:w-auto", className)}>
       <div className="flex items-end gap-x-4 justify-between">
         <div className="flex flex-col gap-y-2">
           <div className="flex items-center gap-x-2">
